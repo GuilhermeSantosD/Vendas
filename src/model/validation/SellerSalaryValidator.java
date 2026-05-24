@@ -1,7 +1,3 @@
-package model.validation;
-
-import model.entities.Seller;
-
 public class SellerSalaryValidator extends BaseValidator<Seller> {
     public void validate(Seller entity) {
         if (entity.getBaseSalary() == null || entity.getBaseSalary() <= 0) {

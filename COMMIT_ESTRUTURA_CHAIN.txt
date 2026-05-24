@@ -1,8 +1,0 @@
-Estrutura completa do padrao Chain of Responsibility para Validacao e Auditoria
-
-- Define interfaces base (Validator e AuditHandler) e classes abstratas para encadeamento.
-- Implementa validadores especificos para a entidade Seller (Nome, Email, Salario, Departamento).
-- Implementa validador para a entidade Department (Nome).
-- Implementa handlers de auditoria para saida em Console e em Arquivo (audit.log).
-- Adiciona factories para encapsular a montagem automatica das cadeias de responsabilidade.
-- Corrige declaracoes de pacotes, imports e sintaxe em todos os arquivos criados.

@@ -1,7 +1,3 @@
-package model.validation;
-
-import model.entities.Seller;
-
 public class SellerDepartmentValidator extends BaseValidator<Seller> {
     public void validate(Seller entity) {
         if (entity.getDepartment() == null) {
