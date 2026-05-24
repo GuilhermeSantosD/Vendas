@@ -1,5 +1,6 @@
+package model.validation;
 
- public abstract class BaseValidator <T> implements Validator<T> {
+public abstract class BaseValidator<T> implements Validator<T> {
     protected Validator<T> next;
 
     public void setNext(Validator<T> next){
