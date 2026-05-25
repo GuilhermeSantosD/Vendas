@@ -15,17 +15,26 @@ import db.DbException;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
+import model.audit.AuditFactory;
+import model.audit.AuditHandler;
+import model.validation.SellerValidatorFactory;
+import model.validation.Validator;
 
 public class SellerDaoJDBC implements SellerDao {
 
 	private Connection conn;
+	private Validator<Seller> validator;
+	private AuditHandler auditHandler;
 	 
 	public SellerDaoJDBC(Connection conn) {
 		this.conn = conn;
+		this.validator = SellerValidatorFactory.createValidator();
+this.auditHandler = AuditFactory.createAuditHandler();
 	}
 	
 	@Override
 	public void insert(Seller obj) {
+		validator.validate(obj);
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -60,15 +69,17 @@ public class SellerDaoJDBC implements SellerDao {
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
+		
 		finally {
 			DB.closeStatement(st);
-			
+			auditHandler.handle("INSERT_SELLER", obj);
 		}
 		
 	}
 
 	@Override
 	public void update(Seller obj) {
+		validator.validate(obj);
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
@@ -91,6 +102,7 @@ public class SellerDaoJDBC implements SellerDao {
 			throw new DbException(e.getMessage());
 		}
 		finally {
+			auditHandler.handle("UPDATE_SELLER", obj);
 			DB.closeStatement(st);
 			
 		}
@@ -115,6 +127,7 @@ public class SellerDaoJDBC implements SellerDao {
 		throw new DbException(e.getMessage());
 		}
 		finally {
+			auditHandler.handle("DELETE_SELLER", "id=" + id);
 			DB.closeStatement(st);
 			
 		}

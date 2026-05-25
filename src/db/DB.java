@@ -18,6 +18,14 @@ public class DB {
 			try {
 				Properties props = loadProperties();
 				String url = props.getProperty("dburl");
+				String driver = props.getProperty("driver");
+				if (driver != null) {
+					try {
+						Class.forName(driver);
+					} catch (ClassNotFoundException e) {
+						throw new DbException("Driver not found: " + driver);
+					}
+				}
 				conn = DriverManager.getConnection(url, props);
 			}
 			catch (SQLException e) {
