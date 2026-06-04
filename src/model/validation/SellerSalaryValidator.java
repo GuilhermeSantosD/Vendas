@@ -2,6 +2,7 @@ package model.validation;
 
 import model.entities.Seller;
 
+@ValidationStep(entity = Seller.class, order = 3)
 public class SellerSalaryValidator extends BaseValidator<Seller> {
     public void validate(Seller entity) {
         if (entity.getBaseSalary() == null || entity.getBaseSalary() <= 0) {
